@@ -1,0 +1,10 @@
+<h1>Welcome <% @user.email %></h1>
+
+<div class="col-md-6">
+  <h2>Find a new adventure</h2>
+  <%= form_tag("trips/results", method: "post") do %>
+    <%= label_tag("Park Name") %>
+    <%= text_field_tag(:pname) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+</div>

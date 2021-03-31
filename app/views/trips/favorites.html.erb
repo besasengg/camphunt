@@ -1,0 +1,19 @@
+<div class="container col-md-12">
+  <h1>All Your Favorite Trips</h1>
+  <div class="col-md-6">
+      <table class="table table-striped">
+        <tr>
+          <th>Trip Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+        </tr>
+        <% @fav_trips.each do |trip| %>
+          <tr>
+            <td><%= link_to "#{trip.name}", user_trip_path(current_user, trip) %></td>
+            <td><%= trip.start_date_formatter %></td>
+            <td><%= trip.end_date_formatter %></td>
+          </tr>
+        <% end %>
+      </table>
+  </div>
+</div>

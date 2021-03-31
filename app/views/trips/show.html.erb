@@ -1,0 +1,49 @@
+<div class="container col-md-12">
+  <h2>Lets get ready for your trip to <%= @trip.name %></h2>
+  <p><%= @trip.description %></p>
+    <% if @trip.favorite == true %>
+      <%= button_to "Remove From Favorites",
+        update_favorite_path(@trip),
+        class: "btn btn-danger",
+        method: :put %>
+    <% else %>
+      <%= button_to "Add To Favorites",
+        update_favorite_path(@trip),
+        class: "btn btn-primary",
+        method: :put %>
+    <% end %>
+</div>
+
+<div class="container col-md-12">
+<h3>Supplies</h3>
+    <table class="table">
+      <% @trip.trip_supplies.each do |supply| %>
+        <tr>
+          <td><%= Supply.find(supply.supply_id).name %>
+          <%= supply.quantity %>
+          <div style="display:inline-block;">
+            <%= button_to "+1", trip_supplies_increase_path(supply), :class => "quantity", method: :put %>
+          </div>
+          <div style="display:inline-block;">
+            <%= button_to "-1", trip_supplies_decrease_path(supply), :class => "quantity", method: :put %>
+          </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+<%= form_for @trip do |f| %>
+  <%= f.fields_for :supplies, @trip.supplies.build do |supplies_fields| %><br>
+    <%= supplies_fields.label "Supply Name" %>
+    <%= supplies_fields.text_field :name %>
+  <% end %>
+  <%= f.submit "Add Supply" %><br><br>
+<% end %>
+</div>
+<div class="container col-md-4">
+  <div class="row">
+    <a href="#" class="js-next btn btn-primary"  data-trip="<%= @trip.id %>" data-user="<%= @trip.user_id %>">Preview the Next Trip</a>
+    <h2 class="titleName"></h2>
+    <p class="tripDescription"></p>
+    <span class="tripLink"></span>
+  </div>
+</div>

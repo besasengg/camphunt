@@ -1,0 +1,29 @@
+<h1>Here are your results for <%= @json["resultset"]["pname"].titlecase %></h1>
+
+<table class="table table-striped">
+  <% if @json["resultset"]["result"].is_a?(Array) %>
+    <% @json["resultset"]["result"].each do |park| %>
+      <tr>
+        <td>
+          <%= park["facilityName"].titlecase %></br>
+          <button><%= link_to "Create Trip",
+            new_trip_path(name: "#{park["facilityName"].titlecase}",
+                               contract_code: "#{park["contractID"]}",
+                               park_id: "#{park["facilityID"]}") %>
+        </button>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+      <tr>
+        <td>
+          <%= @json["resultset"]["result"]["facilityName"].titlecase %><br>
+          <button><%= link_to "Create Trip",
+          new_trip_path(name: @json["resultset"]["result"]["facilityName"].titlecase,
+                        contract_code: @json["resultset"]["result"]["contractID"],
+                        park_id: @json["resultset"]["result"]["facilityID"]) %>
+        </button>
+        </td>
+      </tr>
+  <% end %>
+</table>

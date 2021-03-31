@@ -1,0 +1,35 @@
+<div class="container">
+  <% if @name %>
+    <h2>Lets get ready for your trip to <%= @name %></h2>
+  <% else %>
+    <h2>Lets get ready for your trip!</h2>
+  <% end %>
+
+<%= form_for @trip do |f| %>
+  <div class="fields_with_errors">
+    <% if @trip.errors.any? %>
+      <div>
+        <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
+        <ul>
+          <% @trip.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <%= f.label "Name" %><br>
+  <%= f.text_field :name, value: @name, class: "form-control" %><br>
+  <%= f.label "Description" %><br>
+  <%= f.text_area :description, value: @description, rows: "5", class: "form-control" %><br>
+  <%= f.label "Start Date" %><br>
+  <%= f.date_field :start_date, class: "form-control" %><br>
+  <%= f.label "End Date" %><br>
+  <%= f.date_field :end_date, class: "form-control" %><br>
+  <%= f.fields_for :supplies, @trip.supplies.build do |supplies_fields| %><br>
+    <%= supplies_fields.label "Supply Name" %><br>
+    <%= supplies_fields.text_field :name %><br><br>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+</div>

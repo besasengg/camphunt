@@ -1,0 +1,9 @@
+<div class="container col-md-12">
+  <h1>All Your Trips</h1>
+  <% @trips.each do |trip| %>
+    <h3><%= link_to "#{trip.name}", user_trip_path(current_user, trip) %></h3>
+    <div id="trip-<%= trip.id %>"><%= truncate(trip.description) %></div>
+    <button class="js-more" data-trip="<%= trip.id %>" data-user="<%= trip.user_id %>">Read More</button>
+    <ul id="trip_<%= trip.id %>_supplies"></ul>
+  <% end %>
+</div>
